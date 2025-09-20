@@ -16,5 +16,16 @@ def submit_data():
 
     return {'message': 'Данные успешно сохранены!'}, 200
 
+# Новый эндпоинт для версии 2.0
+@app.route('/data', methods=['GET'])
+def get_data():
+    try:
+        # Читаем данные из файла
+        with open('data.txt', 'r', encoding='utf-8') as f:
+            content = f.read()
+        return {'data': content}, 200
+    except FileNotFoundError:
+        return {'data': ''}, 200 # Возвращаем пустую строку, если файла нет
+
 if __name__ == '__main__':
     app.run(debug=True)
